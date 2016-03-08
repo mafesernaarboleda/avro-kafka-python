@@ -13,7 +13,7 @@
     },
     {
       "name": "io",
-      "type": "int"
+      "type": "string"
     },
     {
       "name": "timestamp",

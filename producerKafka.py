@@ -7,7 +7,7 @@ import time
 import sys
 
 kafka_client = KafkaClient('52.2.239.144:9092')
-producer = SimpleProducer(kafka_client)
+producer = KeyedProducer(kafka_client)
 schema_path = "RuleMessage.avsc"
 schema = avro.schema.parse(open(schema_path).read())
 
@@ -33,15 +33,15 @@ def message_serializer(station, model, iodata, value, connection):
     return raw_bytes
 
 
-def send_message_producer(topic, raw_bytes):
+def send_message_producer(topic, raw_bytes, station):
     try:
-        producer.send_messages(topic, raw_bytes)
+        producer.send_messages(topic, station, raw_bytes)
     except:
         print("Error send message kafka", sys.exc_info()[0])
 
 
 topic = "events"
-messageToSend = message_serializer("12", "32", 15, 1.3, True)
+messageToSend = message_serializer("12", "32", "e", 1.3, True)
 raw_bytes = messageToSend
 if raw_bytes is not None:
-    send_message_producer(topic, raw_bytes)
+    send_message_producer(topic, raw_bytes, "idestacion")
