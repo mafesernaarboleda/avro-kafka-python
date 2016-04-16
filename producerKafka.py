@@ -41,7 +41,7 @@ def send_message_producer(topic, raw_bytes, station):
 
 
 topic = "events"
-messageToSend = message_serializer("12", "32", "e", 1.3, True)
+messageToSend = message_serializer("6", "d", "1d", 1.0, True)
 raw_bytes = messageToSend
 if raw_bytes is not None:
     send_message_producer(topic, raw_bytes, "idestacion")
